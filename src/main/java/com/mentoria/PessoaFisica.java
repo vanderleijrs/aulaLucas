@@ -2,11 +2,11 @@ package com.mentoria;
 
 public class PessoaFisica extends Pessoa {
 
-  String cpf;
-  String dataNascimento;
-  String rg;
-  String endereco;
-  String cidade;
+  private String cpf;
+  private String dataNascimento;
+  private String rg;
+  private String endereco;
+  private String cidade;
 
   public PessoaFisica(String nome) {
     super(nome);

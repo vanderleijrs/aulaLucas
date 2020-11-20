@@ -1,14 +1,21 @@
-package com.mentoria;
+package com.mentoria.services.entities;
+
+import com.mentoria.Pessoa;
+import com.mentoria.PessoaFactory;
+import com.mentoria.PessoaFisica;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class GerenciarPessoa {
+public class PessoaEntity {
 
   List<Pessoa> pessoas;
 
-  public GerenciarPessoa() {
+  public PessoaEntity() {
     this.pessoas = new ArrayList<>();
   }
 
@@ -18,20 +25,56 @@ public class GerenciarPessoa {
 
   public static void main(String[] args) throws Exception {
 
-    GerenciarPessoa gerente = new GerenciarPessoa();
+    PessoaEntity gerente = new PessoaEntity();
 
     PessoaFactory.setTipoPessoa("nova");
     gerente.inserir(PessoaFactory.getInstance("Lucas"));
     gerente.inserir(PessoaFactory.getInstance("Vanderlei"));
 
-
-    PessoaFisica.builder().cpf("001").nome("Fernanda").build();
-
-
-    PessoaFisica.builder().nome("Fernanda").cpf("001").build();
+//    PessoaFisica.builder().cpf("001").nome("Fernanda").build();
+//
+//    PessoaFisica.builder().nome("Fernanda").cpf("001").build();
 
     gerente.listar();
 
+    //var nomeDaMinhaFuncao = function() {}
+    //nomeDaMinhaFuncao()
+
+    //outraFuncao(nomeDaMinhaFuncao);
+//    Function() {
+//      public Argumento run(Object parametro) {
+//
+//      };
+//    }
+//
+//    if(obj instanceof Function)
+//      ((Function) obj).run();
+//
+  }
+
+//  public boolean verifyIfFlightIsFromSameCarrier(Flight flight, Carrier carrier){
+//    List<Flight> flights = new ArrayList<>();
+//    List<Carrier> carriers = new ArrayList<>();
+//
+//    flights.stream().filter(PorNome).collect(Collectors.toList());
+//
+//    return flights.stream().filter(x -> x.flightName.equals(y.carrierName)).findAny().isPresent();
+//  }
+
+  public List<Pessoa> filtrarPessoasDeMesmoNome(String nomeProcurado) {
+//    pessoas.stream().filter(Pessoa::ome).collect(Collectors.toList());
+
+    return filtrarPorPredicado(x -> nomeProcurado.equals(x.getNome()));
+//    return pessoas.stream().filter(x -> nomeProcurado.equals(x.getNome())).collect(Collectors.toList());
+  }
+
+  public List<Pessoa> filtrarPessoasDeMesmoEndereco(String endereco) {
+    return filtrarPorPredicado(x -> endereco.equals(x.getEndereco()));
+//    return pessoas.stream().filter(x -> endereco.equals(x.getEndereco())).collect(Collectors.toList());
+  }
+
+  private List<Pessoa> filtrarPorPredicado(Predicate<Pessoa> predicado) {
+    return pessoas.stream().filter(predicado).collect(Collectors.toList());
   }
 
   public void listar(){
